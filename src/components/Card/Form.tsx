@@ -9,12 +9,13 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { changeLocalStorage } from "../../services/storage";
+import { Colors } from "../../Colors";
 
 
 export const Form = () => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
-  const { setIsLoggedIn } = useContext(AppContext);
+  const { setIsLoggedIn, transition, isDarkMode } = useContext(AppContext);
   const navigate = useNavigate();
   
   const  validateUser = async (email: string, password: string) => {
@@ -42,7 +43,12 @@ export const Form = () => {
               }}/>
             </Center>
             <Center fontWeight='bold'>
-                <Button onClick={() => validateUser(email, password)}>Entrar</Button>
+                <Button 
+                onClick={() => validateUser(email, password)}
+                backgroundColor={!isDarkMode ? Colors.lightApp.primaryColor : Colors.darkApp.primaryColor}
+                >
+                  Entrar
+                </Button>
             </Center>
           </Box> 
         </>

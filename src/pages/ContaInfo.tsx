@@ -1,11 +1,14 @@
 import { Box, Card, Center, Spinner, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { UserData } from './Conta';
+import { Colors } from '../Colors'
+import { AppContext } from '../components/AppContext';
 
 export const ContaInfo = () => {
     const [userData, setUserData] = useState<null | UserData>();
+    const { isDarkMode, transition } = useContext(AppContext)
 
     useEffect(() => {
         const getData = async () => {
@@ -24,13 +27,22 @@ export const ContaInfo = () => {
                     </Center>
                 ) :
                     <Center>
-                        <Card width='450px' height='350px' padding={3}>
+                        <Card 
+                            width='450px'
+                            height='350px' 
+                            padding={3}
+                            backgroundColor={!isDarkMode ? Colors.lightApp.secondaryColor : Colors.darkApp.secondaryColor}
+                            transition={transition}
+                        >
                             <Link to='/conta/1'>
-                                <Text fontSize='xl'>
+                                <Text 
+                                   fontSize='xl'>
                                     Voltar
                                 </Text>
                             </Link>
-                            <Box textAlign='center'>
+                            <Box 
+                                textAlign='center'
+                            >
                                 <Text fontSize='3xl' fontWeight='bold'>
                                     Informações da Conta
                                 </Text><Text>

@@ -3,13 +3,13 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Layout } from "./components/Layout";
 import { AppContextProvider } from "./components/AppContext";
 import { MainRoutes } from "./routes";
-import { createLocalStorage, getAllLocalStorage } from "./services/storage";
+import { createLocalStorage, getAllLocalStorage, getDarkModeOnLocalStorage, createDarkModeLocalStorage } from "./services/storage";
 
 
 function App() {
 
   !getAllLocalStorage() && createLocalStorage(); 
-  
+  !getDarkModeOnLocalStorage() && createDarkModeLocalStorage();
   return (
     <BrowserRouter>
       <AppContextProvider>

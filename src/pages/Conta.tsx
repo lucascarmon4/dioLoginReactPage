@@ -4,6 +4,7 @@ import { CardInfo } from "../components/Card/CardInfo";
 import { api } from "../api";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../components/AppContext";
+import { Colors } from "../Colors";
 
 export interface UserData {
     email: string;
@@ -13,6 +14,9 @@ export interface UserData {
     id: string;
   }
 export const Conta = () => {
+
+    const { isDarkMode, transition } = useContext(AppContext)
+
     const [userData, setUserData] = useState<null | UserData>();
     const { id } = useParams();
     const navigate = useNavigate();
@@ -53,13 +57,25 @@ export const Conta = () => {
                     ) : 
                     (
                         <>
-                            <CardInfo mainContent={`Bem vindo(a) ${userData?.name}`} content={`
-                                ${actualData.getDate()}/${actualData.getMonth()+1}/${actualData.getFullYear()} ${actualData.getHours()}:${actualData.getMinutes()}
-                            `}/>
-                            <CardInfo mainContent={`Saldo`} content={`
-                                R$ ${userData.balance}
-                            `}/>
-                            <Button onClick={() => navigate('/infoconta')}>Informações da conta</Button>
+                            <CardInfo 
+
+                                mainContent={`Bem vindo(a) ${userData?.name}`} 
+                                content={`
+                                    ${actualData.getDate()}/${actualData.getMonth()+1}/${actualData.getFullYear()} ${actualData.getHours()}:${actualData.getMinutes()}
+                                `}
+                            />
+                            <CardInfo 
+
+                                mainContent={`Saldo`}
+                                content={`
+                                    R$ ${userData.balance}
+                                `}
+                            />
+                            <Button 
+                                backgroundColor={!isDarkMode ? Colors.lightApp.secondaryColor : Colors.darkApp.secondaryColor}
+                                transition={transition} 
+                                onClick={() => navigate('/infoconta')}>Informações da conta
+                            </Button>
                         </>
                     )
                 }
